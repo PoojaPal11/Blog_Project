@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% for object in object_list %}
+    <h2>Title : <a href="{% url 'app:post_detail' object.id %}" >{{object.title}}</a></h2>
+    <h2>Author : {{object.author.username}}</h2>
+    <h3>--------------------------------------</h3>
+    {% endfor %}
+
+    <h1>{{Pagination}}</h1>
+<h1>Pagination</h1>
+        {% if is_paginated %}
+        <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li>
+                <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+            </li>
+        {% endif %}
+            <li class="">
+                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+            </li>
+        {% if page_obj.has_next %}
+            <li>
+                <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+            </li>
+        {% endif %}
+        </ul>
+        {% else %}
+            <h3>Your File Exam</h3>
+            <p>File not yet available</p>
+        {% endif %}
+</body>
+    
+</html>

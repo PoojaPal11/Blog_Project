@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% if not object.published_date %}
+    <a href="{% url 'app:publish' object.id %}"><h1>Publish</h1></a>
+    {% endif %}
+
+    <h2>Author : {{object.author.username}}</h2>
+    <h2>Title : {{object.title}}</h2>
+    <p>{{object.text}}</p>
+
+    {% if request.session.username == object.author.username %}
+    <h3>------------------------------------------</h3>
+    <a href="{% url 'app:post_update' object.id %}"><h2>UPDATE</h2></a>
+    <h3>------------------------------------------</h3>
+    <a href="{% url 'app:post_delete' object.id %}"><h2>Delete</h2></a>
+    <h3>------------------------------------------</h3>
+    {% endif %}
+
+    {% if object.published_date %}
+    <a href="{% url 'app:comments' object.id %}"><h1>Add Comment</h1></a>
+    {% endif %}
+
+    {% for comment in object.Comments.all %}
+    <h2><i>{{comment.author}}</i></h2>
+    <h2><i>{{comment.text}}</i></h2>
+
+    {% empty %}
+
+    <h3>No comments Yet</h3>
+
+    {% endfor %}
+</body>
+    
+</html>
